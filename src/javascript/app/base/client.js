@@ -306,6 +306,9 @@ const Client = (() => {
         // Remove cookies
         removeCookies('login', 'loginid', 'loginid_list', 'email', 'residence', 'settings');
         removeCookies('reality_check', 'affiliate_token', 'affiliate_tracking', 'onfido_token', 'utm_data', 'gclid');
+        // Clear the home session cookie shared on .deriv.com so getAccountId() does not
+        // treat the user as still logged in after logout (see config.js getAccountId fallback).
+        removeCookies('options_account_id');
         
         // Clear elev.io session storage
         sessionStorage.removeItem('_elevaddon-6app');
