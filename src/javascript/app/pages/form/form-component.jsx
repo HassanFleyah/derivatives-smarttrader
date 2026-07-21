@@ -162,21 +162,7 @@ export const FormComponent = () => {
     };
 
     const getAmount = () => (isCryptocurrency(currency)) ? amount_crypto : amount;
-    // The `language` cookie is JSON-stringified (e.g. '"EN"'), so parse it before use — otherwise the
-    // quote characters leak into the locale tag ('"en"') and crash the date picker's toLocaleString with
-    // a RangeError. Fall back to 'en' when the cookie is missing (e.g. fresh/incognito session).
-    const getLang = () => {
-        const raw = Cookies.get('language');
-        if (!raw) return 'en';
-        try {
-            // newer cookies are JSON-stringified (e.g. '"EN"')
-            return JSON.parse(raw);
-        } catch (e) {
-            // legacy cookies are stored as a plain value (e.g. 'EN')
-            return raw;
-        }
-    };
-    const lang = (getLang() || 'en').replace(/_/g, '-').toLowerCase() || 'en';
+    const lang = Cookies.get('language').replace('_','-').toLowerCase() || 'en';
 
     return (
         <BreakpointProvider>
